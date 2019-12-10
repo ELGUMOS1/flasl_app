@@ -22,8 +22,8 @@ db = SQLAlchemy(app)
 
 @app.route('/get/<n>')
 def index():
-	sol = app.query.filter_by(n=n).all()
-	return sol
+    sol = app.query.filter_by(n=n).all()
+    return sol
 
 
 
