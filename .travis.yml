@@ -1,0 +1,33 @@
+sudo: required
+
+dist: trusty
+language: python
+
+python:
+  - 3.5
+  
+services:
+  - docker
+
+
+before_install:
+  - sudo apt-get update
+  - sudo apt install python-pip
+  - sudo pip install pyOpenSSL --upgrade
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin  
+  
+install:
+  - pip install docker-compose
+
+before_script:
+  - docker-compose up -d --build 
+ 
+  - docker ps -a
+  - docker-compose logs
+script:
+  - docker exec flasl_web_1 python -m unittest discover
+after_script:
+  - docker-compose down
