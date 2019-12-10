@@ -12,7 +12,7 @@ WORKDIR /home/flask/app/web
 # re-install all python packages defined in requirements.txt
 # whenever any source code change is made)
 COPY requirements.txt /home/flask/app/web
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install -r requirements.txt
 
 # Copy the source code into the container
 COPY . /home/flask/app/web
